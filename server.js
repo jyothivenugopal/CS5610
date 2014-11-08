@@ -7,7 +7,7 @@ app.use(express.static(__dirname + '/public'));
 // configure express to parse JSON in the body of an HTTP request
 app.use(express.bodyParser());
 
-var mongodbConnectionString = process.env.OPENSHIFT_MONGODB_DB_URL + "searchandgo";
+var mongodbConnectionString = process.env.OPENSHIFT_MONGODB_DB_URL + "project";
 if(typeof process.env.OPENSHIFT_MONGODB_DB_URL == "undefined") {
 	mongodbConnectionString = "newdb" //for local
 }
