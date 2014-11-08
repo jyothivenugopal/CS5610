@@ -18,6 +18,11 @@ var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
 var db = mongojs(mongodbConnectionString, ["comment"]);
 
+app.get('/env', function (req, res) {
+    res.json(process.env);
+
+});
+
 app.get('/getAllComments', function (req, res) {
     db.comment.find(function (err, data) {
         res.json(data);
