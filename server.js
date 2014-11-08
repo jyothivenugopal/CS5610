@@ -18,8 +18,77 @@ var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
 var db = mongojs(mongodbConnectionString, ["comment"]);
 
-app.get("/hello", function (req, res) {
-    res.send("Hello World")
+app.get('/getAllComments', function (req, res) {
+    db.comment.find(function (err, data) {
+        res.json(data);
+    });
 });
+
+
+app.get('/getCommentsById/:id', function (req, res) {
+    var id = req.params.id;
+    db.comment.findOne({
+        _id: mongojs.ObjectId(id)
+    }, function (err, doc) {
+        res.json(doc);
+    });
+
+
+});
+
+app.get('/removeCommentById/:id', function (req, res) {
+    db.comment.remove({
+        _id: mongojs.ObjectId(req.params.id)
+    }, function (err, doc) {
+        res.json(doc);
+    });
+
+});
+
+app.get('/removeCommentByName/:lastName', function (req, res) {
+    db.comment.remove({
+        last: req.params.lastName
+    }, false, function (err, doc) {
+        res.json(doc);
+    });
+
+});
+
+
+app.get('/updateComment/:id', function (req, res) {
+
+    console.log(req.query);
+    var cbody = req.query.cbody;
+
+    db.comment.findAndModify({
+        query: { _id: mongojs.ObjectId(req.params.id) },
+        update: { $set: { cbody: cbody } },
+        new: true
+    }, function (err, doc, lastErrorObject) {
+        //res.json(doc);
+        db.comment.find(function (err, data) {
+            res.json(data);
+        });
+
+
+    });
+});
+
+app.get('/createComment', function (req, res) {
+
+    console.log(req.query);
+    var comment = {
+        cname: req.query.cname,
+        chead: req.query.chead,
+        cbody: req.query.cbody
+    };
+
+    db.comment.insert(comment, function (err, data) {
+        console.log(err);
+        console.log(data);
+        res.json(data);
+    });
+});
+
 
     app.listen(port, ipaddress);
