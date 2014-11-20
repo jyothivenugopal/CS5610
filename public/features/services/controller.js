@@ -7,6 +7,17 @@ function ServicesCtrl($scope, $http) {
 		});
 	}
 
+	$scope.getresults = function () {
+	    console.log("Hello from getresults")
+	    var sterm = $scope.searchterm;
+	    var sloc = $scope.searchlocation;
+	    console.log(sterm);
+	    $http.get("/getresults/" + sterm + "/" + sloc)
+		.success(function (response) {
+		    console.log(response);
+		});
+	}
+
 	$scope.renderServiceClients = function (response) {
 		$scope.serviceClients = response;
 	};
@@ -39,24 +50,3 @@ function ServicesCtrl($scope, $http) {
 
 	$scope.all();
 }
-
-
-
-/*function ServicesCtrl($scope, $http) {
-	console.log("Hello from Services Controller");
-
-	$scope.create = function() {
-		console.log($scope.serviceClient);
-		$http.post("/serviceClients", $scope.serviceClients)
-		.success(function(response) {console.log(response);});
-	}
-
-	$scope.renderServiceClients = function(response) {
-			$scope.serviceClients = response;
-	};
-
-	//get all
-	$http.get("/serviceClients")
-	.success($scope.renderServiceClients);
-
-}*/

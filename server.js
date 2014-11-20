@@ -1,5 +1,17 @@
 var express = require('express');
 var mongojs = require('mongojs');
+var yelp = require("yelp").createClient({
+    consumer_key: "TOFwPVUBOkJhYfrzuvko6A",
+    consumer_secret: "sg-E3xiGzotUqwMT4ITSRWI9tFg",
+    token: "10eE3QsckF3EjVudmsDs9tFNj0jhAQvZ",
+    token_secret: "v9Ybl7xRtZpciQflaoCpvdgUvGo"
+});
+
+yelp.search({ term: "food", location: "Montreal" }, function (error, data) {
+    console.log(error);
+    console.log(data);
+});
+
 var app = express();
 // serve static content (html, css, js) in the public directory
 app.use(express.static(__dirname + '/public'));
@@ -14,6 +26,14 @@ if(typeof process.env.OPENSHIFT_MONGODB_DB_URL == "undefined") {
 
 var db = mongojs(mongodbConnectionString, ["comment"]);
 var db1 = mongojs(mongodbConnectionString, ["serviceClients"]);
+
+app.get("/getresults/:sterm/:sloc", function (req, res) {
+    var sterm = req.params.sterm;
+    var sloc = req.params.sloc;
+    yelp.search({ term: sterm, location: sloc }, function (error, data) {
+        res.json(data);
+    });
+});
 
 app.get('/env', function(req, res){
 	res.json(process.env);
