@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>AngularJS Routing</title>
+</head>
+<body ng-app="myApp">
+
+     <div class="container">
+     <h1 class="text-center">Demonstrating AngularJS Routing Capabilities</h1>
+     <h2 class="text-center">Purpose of the Experiment</h2>
+		<p>This experiment is used to demonstrate the ng-route capabilities of AngularJS. It works in the following way,</p>
+		<p>When one of the links is clicked, the corresponding template and controller in app.js is called, which in turn calls the respeoctive html page.</p>
+     <hr>
+     <h2 class="text-center">Demo of the experiment</h2>
+		<div class="row">
+			<div class="col-md-3">
+				<a class="text-center" href="#pg1">Click to view page1</a>
+				<a class="text-center" href="#pg2">Click to view page2</a>
+			</div>
+		<div class="col-md-9">
+		  	<div ng-view></div>
+		</div>
+
+		</div>
+		<hr>
+		<h2 class="text-center">Code Snippets</h2>
+		<pre>myApp.config(['$routeProvider',
+  function($routeProvider) {
+    $routeProvider.
+      when('/pg1', {
+	templateUrl: 'page1.html',
+	controller: 'pg1ctrl'
+      }).
+      when('/pg2', {
+	templateUrl: 'page2.html',
+	controller: 'pg2ctrl'
+      }).
+      otherwise({
+	redirectTo: '/pg1'
+      });
+}]);</pre>
+<hr>
+<h2 class="text-center">Sources</h2>
+	        <p>
+	            Links to this page's source code: <a href="../../fileview/Default.aspx?~/experiments/Week5_NodeJS_MongoDB_Experiments/Experiment3.html">Experiment</a>
+	        </p>
+	        <p>
+	            References:
+	            <a href="http://net4.ccs.neu.edu/home/jga/examples/">Professor's Jose experiment</a>
+	            <a href="http://w3schools.com/">w3schools</a>
+        </p>
+
+    </div>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+	<script src="myapp.js"></script>
+
+  </body>
+</html>
