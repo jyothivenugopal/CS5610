@@ -11,10 +11,10 @@ function ServicesCtrl($scope, $http) {
 	    console.log("Hello from getresults")
 	    var sterm = $scope.searchterm;
 	    var sloc = $scope.searchlocation;
-	    console.log(sterm);
 	    $http.get("/getresults/" + sterm + "/" + sloc)
 		.success(function (response) {
-		    console.log(response);
+		    $scope.businesses = response.businesses;
+		    console.log($scope.businesses);
 		});
 	}
 

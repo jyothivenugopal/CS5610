@@ -1,13 +1,29 @@
 <html>
 <head>
+    <meta charset="utf-8">
     <title>The MEAN Stack</title>
     <link href="css/bootstrap.css" rel="stylesheet" />
     <script src="js/angular.min.js"></script>
     <script src="features/services/controller.js"></script>
+    <script src="features/services/myapp.js"></script>
 </head>
 <body ng-app="">
+
+    <h2 class="text-center">Demo of the experiment</h2>
+    <div class="row" ng-app="myApp">
+        <div class="col-md-3">
+            <a class="text-center" href="#pg1">Click to view page1</a>
+            <a class="text-center" href="#pg2">Click to view page2</a>
+        </div>
+        <div class="col-md-9">
+            <div ng-view></div>
+        </div>
+
+    </div>
+    <hr>
     <div class="container" ng-controller="ServicesCtrl">
         <h1>Search and Go!!!</h1>
+
         <div class="container">
             <h2>Start your search here!</h2>
             <form role="form">
@@ -22,8 +38,42 @@
                 <button type="submit" class="btn btn-default" ng-click="getresults()">Get results</button>
             </form>
         </div>
-        <p><button class="btn btn-success" ng-click="getresults()">Get results</button></p>
-        {{message}}
+        
+        <div id="viewchange">
+          
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Rating</th>
+                        <th>Go here!</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="b in businesses">
+                        <td>
+                            <img src={{b.image_url}} alt="No image">
+                        </td>
+                        <td>
+                            <a href={{b.url}}>{{b.id}}</a>
+                        </td>
+                        <td>{{b.display_phone}}</td>
+                        <td>
+                            {{b.rating}}
+                        </td>
+                        <td></td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+     
+
+        <!--<p><button class="btn btn-success" ng-click="getresults()">Get results</button></p>-->
+        
         <table class="table">
             <thead>
                 <tr>
