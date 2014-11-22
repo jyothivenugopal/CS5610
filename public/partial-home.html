@@ -1,6 +1,6 @@
 <div class="container" ng-controller="ServicesCtrl">
     <h1>Search and Go!!!</h1>
-    
+
     <div class="container">
         <h2>Start your search here!</h2>
         <form role="form">
@@ -40,7 +40,7 @@
                     <td>
                         {{b.rating}}
                     </td>
-                    <td></td>
+                    <td><a ui-sref=".list" class="btn btn-primary">Go here</a></td>
 
                 </tr>
             </tbody>
@@ -79,6 +79,9 @@
 
     <a ui-sref=".list" class="btn btn-primary">List</a>
     <a ui-sref=".paragraph" class="btn btn-danger">Paragraph</a>
-</div>
 
-<div ui-view></div>
+    <div class="container">
+        <div ui-view></div>
+    </div>
+
+</div>
