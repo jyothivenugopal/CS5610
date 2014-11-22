@@ -1,95 +1,45 @@
-ï»¿<html>
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8">
-    <title>The MEAN Stack</title>
-    <link href="css/bootstrap.css" rel="stylesheet" />
-    <script src="js/angular.min.js"></script>
-    <script src="features/services/controller.js"></script>
-    <script src="features/services/myapp.js"></script>
+
+    <!-- CSS (load bootstrap) -->
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <style>
+        .navbar { border-radius:0; }
+    </style>
+
+    <!-- JS (load angular, ui-router, and our custom js file) -->
+    <script src="angular.min.js"></script>
+    <script src="angular-ui-router.min.js"></script>
+    <script src="applogin.js"></script>
 </head>
-<body ng-app="">
-    
-    <div class="container" ng-controller="ServicesCtrl">
-        <h1>Search and Go!!!</h1>
-        <a href="index1.html">Go here</a>
-        <div class="container">
-            <h2>Start your search here!</h2>
-            <form role="form">
-                <div class="form-group">
-                    <label for="text">Search term:</label>
-                    <input type="text" class="form-control" ng-model="searchterm" id="searchterm" placeholder="Enter searchterm">
-                </div>
-                <div class="form-group">
-                    <label for="text">Search location:</label>
-                    <input type="text" class="form-control" ng-model="searchlocation" id="searchlocation" placeholder="Enter search location">
-                </div>
-                <button type="submit" class="btn btn-default" ng-click="getresults()">Get results</button>
-            </form>
-        </div>
-        
-        <div id="viewchange">
-          
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Phone Number</th>
-                        <th>Rating</th>
-                        <th>Go here!</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="b in businesses">
-                        <td>
-                            <img src={{b.image_url}} alt="No image">
-                        </td>
-                        <td>
-                            <a href={{b.url}}>{{b.id}}</a>
-                        </td>
-                        <td>{{b.display_phone}}</td>
-                        <td>
-                            {{b.rating}}
-                        </td>
-                        <td></td>
 
-                    </tr>
-                </tbody>
-            </table>
+<!-- apply our angular app to our site -->
+<body ng-app="routerApp">
 
-        </div>
-        
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Comment Name</th>
-                    <th>&nbsp;</th>
-                </tr>
-                <tr>
-                    <td>
-                        <input class="form-control" ng-model="serviceClient.name" />
-                    </td>
-                    <td>
-                        <button class="btn btn-success" ng-click="create()">Add</button>
-                        <button class="btn btn-primary" ng-click="update()">Update</button>
-                    </td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="serviceClient in serviceClients">
-                    <td>
-                        {{serviceClient.name}}
-                    </td>
-                    <td>
-                        <button ng-click="remove(serviceClient._id)" class="btn btn-danger">Remove</button>
-                        <button ng-click="select(serviceClient._id)" class="btn btn-warning">Select</button></td>
-                </tr>
-            </tbody>
-        </table>
+<!-- NAVIGATION -->
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" ui-sref="#">Search and GO!!!</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li><a ui-sref="home">Home</a></li>
+        <li><a ui-sref="about">About</a></li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<!-- THIS IS WHERE WE WILL INJECT OUR CONTENT ============================== -->
+<div class="container">
+    <div ui-view></div>
+</div>
+
+    <div class="footer navbar-fixed-bottom">
+      
+            <div class="container">
+                <p class="text-center">Copyright © 2014 By Jyothi Venugopal All Rights Reserved.</p>
+            </div>
+       
     </div>
 </body>
 </html>
-
-
-
-
