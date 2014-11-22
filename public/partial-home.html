@@ -24,6 +24,7 @@
                     <th>Image</th>
                     <th>Name</th>
                     <th>Phone Number</th>
+                    <th>Address</th>
                     <th>Rating</th>
                     <th>Go here!</th>
                 </tr>
@@ -37,6 +38,7 @@
                         <a href={{b.url}}>{{b.id}}</a>
                     </td>
                     <td>{{b.display_phone}}</td>
+                    <td><b ng-repeat="add in b.location.display_address">{{add}}</b></td>
                     <td>
                         {{b.rating}}
                     </td>
