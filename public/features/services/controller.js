@@ -18,6 +18,32 @@ function ServicesCtrl($scope, $http) {
 		});
 	}
 
+	$scope.choose = function (b) {
+	    console.log(b);
+	    var lat = b.location.coordinate.latitude;// latitude of the destination
+	    var long = b.location.coordinate.longitude;// longitude of the destination
+	    console.log(lat);
+	    console.log(long);
+	    $scope.userlocation(b);
+	}
+
+
+    //new part
+
+	$scope.userlocation = function ($scope) {
+	    if (navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition(function (position) {
+	           
+	                $scope.position = position;
+	                console.log("hi from choose function");
+	                console.log($scope.position);
+	           
+	        });
+	    }
+	}
+
+    //end new part
+    
 	$scope.renderServiceClients = function (response) {
 		$scope.serviceClients = response;
 	};
