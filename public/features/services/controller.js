@@ -1,5 +1,10 @@
 function ServicesCtrl($scope, $http) {
 
+    var srclat = 0;
+    var srclong = 0;
+    var destlat = 0;
+    var destlong = 0;
+
 	$scope.create = function () {
 		$http.post("/serviceClients", $scope.serviceClient)
 		.success(function (response) {
@@ -14,17 +19,18 @@ function ServicesCtrl($scope, $http) {
 	    $http.get("/getresults/" + sterm + "/" + sloc)
 		.success(function (response) {
 		    $scope.businesses = response.businesses;
-		    console.log($scope.businesses);
+		    //console.log($scope.businesses);
 		});
 	}
 
 	$scope.choose = function (b) {
-	    console.log(b);
-	    var lat = b.location.coordinate.latitude;// latitude of the destination
-	    var long = b.location.coordinate.longitude;// longitude of the destination
-	    console.log(lat);
-	    console.log(long);
+	    //console.log(b);
+	    $scope.destlat = b.location.coordinate.latitude;// latitude of the destination
+	    $scope.destlong = b.location.coordinate.longitude;// longitude of the destination
+	    destlat = $scope.destlat;
+	    destlong = $scope.destlong;
 	    $scope.userlocation(b);
+	    $scope.getUberSpecifics();
 	}
 
 
@@ -35,14 +41,27 @@ function ServicesCtrl($scope, $http) {
 	        navigator.geolocation.getCurrentPosition(function (position) {
 	           
 	                $scope.position = position;
-	                console.log("hi from choose function");
-	                console.log($scope.position);
+	                //$scope.srclat = position.coords.latitude; 
+	                srclat = position.coords.latitude;;
+	                //$scope.srclong = position.coords.longitude;
+	                srclong = position.coords.longitude;
+	                //console.log($scope.srclat);
+	                //console.log($scope.srclong);
 	           
 	        });
 	    }
 	}
 
     //end new part
+	$scope.getUberSpecifics = function ($scope) {
+        console.log("hi from uber function")
+        console.log(srclat);
+        console.log(srclong);
+        console.log(destlat);
+        console.log(destlong);
+	    
+
+	}
     
 	$scope.renderServiceClients = function (response) {
 		$scope.serviceClients = response;
