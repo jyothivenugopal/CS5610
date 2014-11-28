@@ -60,7 +60,7 @@ function ServicesCtrl($scope, $http) {
         console.log(destlat);
         console.log(destlong);
 
-        var prodURL = "https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=37.7759792&longitude=-122.41823";
+        var prodURL = "http://net4.ccs.neu.edu/home/jyothi/web_resource/simpleproxy.aspx?url=|https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=37.7759792&longitude=-122.41823|";
 	    
         $http.get(prodURL).success(function (response) {
             $scope.prodContent = response.products;
