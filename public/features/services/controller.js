@@ -55,11 +55,18 @@ function ServicesCtrl($scope, $http) {
     //end new part
 	$scope.getUberSpecifics = function ($scope) {
         console.log("hi from uber function")
-        console.log(srclat);
+        console.log(srclat); // not loading the first time
         console.log(srclong);
         console.log(destlat);
         console.log(destlong);
+
+        var prodURL = "https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=37.7759792&longitude=-122.41823";
 	    
+        $http.get(prodURL).success(function (response) {
+            $scope.prodContent = response.products;
+            console.log($scope.prodContent);
+
+        });
 
 	}
     
