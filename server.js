@@ -46,13 +46,13 @@ app.get("/getresults/:sterm/:sloc", function (req, res) {
 });
 
 app.get("/Uberresults", function (req, res) {
-    console.log("from server")
+    //console.log("from server")
     //var prodURL = "https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=37.7759792&longitude=-122.41823";
 
     // direct way
     client.get("https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=37.7759792&longitude=-122.41823", function (data, response) {
         // parsed response body as js object
-        console.log(data);
+        //console.log(data);
         // raw response
         //console.log(response);
         res.json(data);
