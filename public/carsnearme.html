@@ -1,3 +1,78 @@
-﻿<div class="container" ng-controller="ServicesCtrl">
-    <a class="btn btn-primary" ng-click="nearme()">Go here</a>
-</div>
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Using Uber's Price Estimate Endpoint</title>
+    <script src="angular.min.js"></script>
+    
+</head>
+<body ng-app>
+    <div class="container" ng-controller="WeatherClientController">
+        
+        <h2>Demo of Experiment</h2>
+        <div class="part1">
+            
+            <button ng-click="getMovies()">Get real time price estimates!</button>
+            <br />
+        </div>
+        <br />
+        <div class="part2">
+            <h3>Results from API:</h3>
+            <input type="text" size="50" placeholder="Enter value to filter the results by" ng-model="value">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Capacity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="c in content.products">
+                        <td>
+                            <img src={{c.image}} alt="No image">
+                        </td>
+                        <td>{{c.display_name}}</td>
+                        <td>
+                            {{c.description}}
+                        </td>
+                        <td>{{c.capacity}}</td>
+                    </tr>
+                </tbody>
+            </table>
+           
+
+        </div>
+
+        
+    </div>
+
+    <script>
+        var URL = "https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=STLAT&longitude=STLONG"
+        var mysrclat = 0;
+        var mysrclong = 0;
+        function WeatherClientController($scope, $http) {
+            $scope.getMovies = function () {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+
+                        mysrclat = position.coords.latitude;
+                        mysrclong = position.coords.longitude;
+                    });
+                    console.log(mysrclat);
+                    console.log(mysrclong);
+                }
+                var newurl = URL.replace("STLAT", mysrclat);
+                newurl = newurl.replace("STLONG", mysrclong);
+                $http.get(newurl).success(function (response) {
+                    $scope.content = response;
+                    console.log($scope.content);
+
+                });
+            }
+        }
+
+    </script>
+
+</body>
+</html>

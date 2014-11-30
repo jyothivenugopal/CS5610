@@ -12,10 +12,10 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'partial-home.html'
         })
 
-        .state('carsnearme', {
+        /*.state('carsnearme', {
             url: '/carsnearme',
             templateUrl: 'carsnearme.html'
-        })
+        })*/
         
         // nested list with custom controller
         .state('home.list', {

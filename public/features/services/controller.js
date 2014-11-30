@@ -4,8 +4,8 @@ function ServicesCtrl($scope, $http) {
     var srclong = 0;
     var destlat = 0;
     var destlong = 0;
-    var mysrclat = 1;
-    var mysrclong = 1;
+    //var mysrclat = 0;
+    //var mysrclong = 0;
 
 	$scope.create = function () {
 		$http.post("/serviceClients", $scope.serviceClient)
@@ -114,37 +114,33 @@ function ServicesCtrl($scope, $http) {
 
     //nearme function
 
-	$scope.nearme = function ($scope) {
-	    
+	/*$scope.nearme = function ($scope, $http) {
+
 	    if (navigator.geolocation) {
 	        navigator.geolocation.getCurrentPosition(function (position) {
 
-	            //$scope.myposition = myposition;
-	            //$scope.srclat = position.coords.latitude; 
 	            mysrclat = position.coords.latitude;
-	            //$scope.srclong = position.coords.longitude;
 	            mysrclong = position.coords.longitude;
 	        });
-	        if (mysrclat == 0 && mysrclong == 0)
-	        {
-	            console.log("zero");
-	            navigator.geolocation.getCurrentPosition(function (position) {
-
-	                mysrclat = position.coords.latitude;
-	                mysrclong = position.coords.longitude;
-	            });
-	            console.log(mysrclat);
-	            console.log(mysrclong);
-	        }
-	        else
-	        {
-	            console.log(mysrclat);
-	            console.log(mysrclong);
-	        }
+	        console.log(mysrclat);
+	        console.log(mysrclong);
 	    }
 
-        //now call the carsnearme api
-	}
+	    if (mysrclat != 0 && mysrclong != 0) {
+	        console.log("here");
+	        //now call the carsnearme api
+	        var prodURL = "https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=STLAT&longitude=STLONG";
+
+	        var purl = prodURL.replace("STLAT", mysrclat);
+	        purl = purl.replace("STLONG", mysrclong);
+	        //will work as long as cors plugin is enabled
+	        $http.get(purl).success(function (response) {
+	            $scope.cars = response.products;
+	            console.log($scope.cars);
+
+	        });
+	    }
+	}*/
 
     //end nearme function
 
