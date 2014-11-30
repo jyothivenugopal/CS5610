@@ -127,6 +127,23 @@ function ServicesCtrl($scope, $http) {
             console.log($scope.times);
 
         });
+
+	    //promotions
+
+        var promoURL = "https://api.uber.com/v1/promotions?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&start_latitude=STLAT&start_longitude=STLONG&end_latitude=DESTLAT&end_longitude=DESTLONG";
+
+        var promoesturl = promoURL.replace("STLAT", srclat);
+        promoesturl = promoesturl.replace("STLONG", srclong);
+        promoesturl = promoesturl.replace("DESTLAT", destlat);
+        promoesturl = promoesturl.replace("DESTLONG", destlong);
+
+	    //will work as long as cors plugin is enabled
+        $http.get(promoesturl).success(function (response) {
+            $scope.promos = response;
+            console.log($scope.promos);
+
+        });
+
 	}
     
 	$scope.renderServiceClients = function (response) {

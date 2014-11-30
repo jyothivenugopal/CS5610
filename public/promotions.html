@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Promotions at your location</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <script src="angular.min.js"></script>
+</head>
+<body>
+    <h1>Promotions</h1>
+
+
+    <script>
+        var URL = "https://api.uber.com/v1/promotions?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&start_latitude=42.3380581&start_longitude=-71.08788179999999&end_latitude=42.3388228565454&end_longitude=-71.1071741580963"
+        var mysrclat = 0;
+        var mysrclong = 0;
+        function WeatherClientController($scope, $http) {
+            $scope.getMovies = function () {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+
+                        mysrclat = position.coords.latitude;
+                        mysrclong = position.coords.longitude;
+                        console.log(mysrclat);
+                        console.log(mysrclong);
+
+                        var newurl = URL.replace("STLAT", mysrclat);
+                        newurl = newurl.replace("STLONG", mysrclong);
+                        $http.get(newurl).success(function (response) {
+                            $scope.content = response;
+                            console.log($scope.content);
+
+                        });
+                    });
+                }
+
+            }
+        }
+
+    </script>
+
+
+
+</body>
+</html>
