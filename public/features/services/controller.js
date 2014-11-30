@@ -39,16 +39,32 @@ function ServicesCtrl($scope, $http) {
     //new part
 
 	$scope.userlocation = function ($scope) {
+	    //var URL = "https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=STLAT&longitude=STLONG"
+
 	    if (navigator.geolocation) {
 	        navigator.geolocation.getCurrentPosition(function (position) {
 	           
 	                $scope.position = position;
-	                //$scope.srclat = position.coords.latitude; 
 	                srclat = position.coords.latitude;;
-	                //$scope.srclong = position.coords.longitude;
 	                srclong = position.coords.longitude;
-	                //console.log($scope.srclat);
-	                //console.log($scope.srclong);
+	                
+	                /*console.log(srclat);
+	                console.log(srclong);
+	                console.log(destlat);
+	                console.log(destlong);
+                
+	            // new part
+
+	               var newurl = URL.replace("STLAT", srclat);
+                        newurl = newurl.replace("STLONG", srclong);
+                        $http.get(newurl).success(function (response) {
+                            $scope.content = response;
+                            console.log($scope.content);
+
+                        });*/
+
+                // end new part
+
 	           
 	        });
 	    }
@@ -56,7 +72,7 @@ function ServicesCtrl($scope, $http) {
 
     //end new part
 	$scope.getUberSpecifics = function ($scope, $http) {
-        console.log("hi from uber function")
+	    console.log("hi from uber function")
         console.log(srclat); // not loading the first time
         console.log(srclong);
         console.log(destlat);
@@ -65,7 +81,7 @@ function ServicesCtrl($scope, $http) {
         //$scope.dogs = ['Bernese', 'Husky', 'Goldendoodle'];
 
         //products
-        var prodURL = "https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=STLAT&longitude=STLONG";
+        /*var prodURL = "https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=STLAT&longitude=STLONG";
 	    
         var purl = prodURL.replace("STLAT", srclat);
         purl = purl.replace("STLONG", srclong);
@@ -74,8 +90,9 @@ function ServicesCtrl($scope, $http) {
             $scope.products = response.products;
             //console.log($scope.products);
 
-        });
+        });*/
 
+        //for node rest api, works on localhost but not on openshift
         /*$http.get("/Uberresults")
 		.success(function (response) {
 		    $scope.uberresults = response;
@@ -111,39 +128,6 @@ function ServicesCtrl($scope, $http) {
 
         });
 	}
-
-    //nearme function
-
-	/*$scope.nearme = function ($scope, $http) {
-
-	    if (navigator.geolocation) {
-	        navigator.geolocation.getCurrentPosition(function (position) {
-
-	            mysrclat = position.coords.latitude;
-	            mysrclong = position.coords.longitude;
-	        });
-	        console.log(mysrclat);
-	        console.log(mysrclong);
-	    }
-
-	    if (mysrclat != 0 && mysrclong != 0) {
-	        console.log("here");
-	        //now call the carsnearme api
-	        var prodURL = "https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=STLAT&longitude=STLONG";
-
-	        var purl = prodURL.replace("STLAT", mysrclat);
-	        purl = purl.replace("STLONG", mysrclong);
-	        //will work as long as cors plugin is enabled
-	        $http.get(purl).success(function (response) {
-	            $scope.cars = response.products;
-	            console.log($scope.cars);
-
-	        });
-	    }
-	}*/
-
-    //end nearme function
-
     
 	$scope.renderServiceClients = function (response) {
 		$scope.serviceClients = response;

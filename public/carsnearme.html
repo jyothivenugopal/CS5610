@@ -58,17 +58,19 @@
 
                         mysrclat = position.coords.latitude;
                         mysrclong = position.coords.longitude;
-                    });
-                    console.log(mysrclat);
-                    console.log(mysrclong);
-                }
-                var newurl = URL.replace("STLAT", mysrclat);
-                newurl = newurl.replace("STLONG", mysrclong);
-                $http.get(newurl).success(function (response) {
-                    $scope.content = response;
-                    console.log($scope.content);
+                        console.log(mysrclat);
+                        console.log(mysrclong);
 
-                });
+                        var newurl = URL.replace("STLAT", mysrclat);
+                        newurl = newurl.replace("STLONG", mysrclong);
+                        $http.get(newurl).success(function (response) {
+                            $scope.content = response;
+                            console.log($scope.content);
+
+                        });
+                    });                   
+                }
+                
             }
         }
 
