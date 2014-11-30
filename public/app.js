@@ -11,6 +11,11 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
             url: '/home',
             templateUrl: 'partial-home.html'
         })
+
+        .state('carsnearme', {
+            url: '/carsnearme',
+            templateUrl: 'carsnearme.html'
+        })
         
         // nested list with custom controller
         .state('home.list', {

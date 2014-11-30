@@ -4,6 +4,8 @@ function ServicesCtrl($scope, $http) {
     var srclong = 0;
     var destlat = 0;
     var destlong = 0;
+    var mysrclat = 1;
+    var mysrclong = 1;
 
 	$scope.create = function () {
 		$http.post("/serviceClients", $scope.serviceClient)
@@ -60,21 +62,92 @@ function ServicesCtrl($scope, $http) {
         console.log(destlat);
         console.log(destlong);
 
-        /*var prodURL = "https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=37.7759792&longitude=-122.41823";
+        //$scope.dogs = ['Bernese', 'Husky', 'Goldendoodle'];
+
+        //products
+        var prodURL = "https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=STLAT&longitude=STLONG";
 	    
-        $http.get(prodURL).success(function (response) {
-            $scope.prodContent = response;
-            console.log($scope.prodContent);
+        var purl = prodURL.replace("STLAT", srclat);
+        purl = purl.replace("STLONG", srclong);
+        //will work as long as cors plugin is enabled
+        $http.get(purl).success(function (response) {
+            $scope.products = response.products;
+            //console.log($scope.products);
 
-        });*/
+        });
 
-        $http.get("/Uberresults")
+        /*$http.get("/Uberresults")
 		.success(function (response) {
 		    $scope.uberresults = response;
 		    console.log($scope.uberresults);
-		});
+		});*/
 
+        //price estimates
+
+        var prestURL = "https://api.uber.com/v1/estimates/price?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&start_latitude=STLAT&start_longitude=STLONG&end_latitude=ENDLAT&end_longitude=ENDLONG";
+
+        var pesturl = prestURL.replace("STLAT", srclat);
+        pesturl = pesturl.replace("STLONG", srclong);
+        pesturl = pesturl.replace("ENDLAT", destlat);
+        pesturl = pesturl.replace("ENDLONG", destlong);
+	    //will work as long as cors plugin is enabled
+        $http.get(pesturl).success(function (response) {
+            $scope.prices = response.prices;
+            //console.log($scope.prices);
+
+        });
+
+	    //eta estimates
+
+        var etaURL = "https://api.uber.com/v1/estimates/time?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&start_latitude=STLAT&start_longitude=STLONG";
+
+        var etaesturl = etaURL.replace("STLAT", srclat);
+        etaesturl = etaesturl.replace("STLONG", srclong);
+        
+	    //will work as long as cors plugin is enabled
+        $http.get(etaesturl).success(function (response) {
+            $scope.times = response.times;
+            console.log($scope.times);
+
+        });
 	}
+
+    //nearme function
+
+	$scope.nearme = function ($scope) {
+	    
+	    if (navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition(function (position) {
+
+	            //$scope.myposition = myposition;
+	            //$scope.srclat = position.coords.latitude; 
+	            mysrclat = position.coords.latitude;
+	            //$scope.srclong = position.coords.longitude;
+	            mysrclong = position.coords.longitude;
+	        });
+	        if (mysrclat == 0 && mysrclong == 0)
+	        {
+	            console.log("zero");
+	            navigator.geolocation.getCurrentPosition(function (position) {
+
+	                mysrclat = position.coords.latitude;
+	                mysrclong = position.coords.longitude;
+	            });
+	            console.log(mysrclat);
+	            console.log(mysrclong);
+	        }
+	        else
+	        {
+	            console.log(mysrclat);
+	            console.log(mysrclong);
+	        }
+	    }
+
+        //now call the carsnearme api
+	}
+
+    //end nearme function
+
     
 	$scope.renderServiceClients = function (response) {
 		$scope.serviceClients = response;

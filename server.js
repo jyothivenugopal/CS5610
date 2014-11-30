@@ -1,6 +1,7 @@
 var express = require('express');
 var mongojs = require('mongojs');
-var Client = require('node-rest-client').Client;
+//var Client = require('node-rest-client').Client;
+//var https = require('https');
 
 var yelp = require("yelp").createClient({
     consumer_key: "TOFwPVUBOkJhYfrzuvko6A",
@@ -14,7 +15,7 @@ yelp.search({ term: "food", location: "Montreal" }, function (error, data) {
     console.log(data);
 });
 
-client = new Client();
+//client = new Client();
 
 var app = express();
 // serve static content (html, css, js) in the public directory
@@ -45,21 +46,21 @@ app.get("/getresults/:sterm/:sloc", function (req, res) {
     });
 });
 
-app.get("/Uberresults", function (req, res) {
+/*app.get("/Uberresults", function (req, res) {
     //console.log("from server")
     //var prodURL = "https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=37.7759792&longitude=-122.41823";
 
     // direct way
-    /*client.get("https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=37.7759792&longitude=-122.41823", function (data, response) {
+    client.get("https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=37.7759792&longitude=-122.41823", function (data, response) {
         // parsed response body as js object
         //console.log(data);
         // raw response
         //console.log(response);
         res.json(data);
     });
-    /*end of new part*/
-    res.send("hi");
-});
+    /*end of new part
+    //res.send("hi");
+});*/
 
 
 
