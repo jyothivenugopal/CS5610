@@ -39,7 +39,7 @@ function ServicesCtrl($scope, $http) {
     //new part
 
 	$scope.userlocation = function ($scope) {
-	    //var URL = "https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=STLAT&longitude=STLONG"
+	    var URL = "https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=STLAT&longitude=STLONG"
 
 	    if (navigator.geolocation) {
 	        navigator.geolocation.getCurrentPosition(function (position) {
@@ -48,13 +48,13 @@ function ServicesCtrl($scope, $http) {
 	                srclat = position.coords.latitude;;
 	                srclong = position.coords.longitude;
 	                
-	                /*console.log(srclat);
+	                console.log(srclat);
 	                console.log(srclong);
 	                console.log(destlat);
 	                console.log(destlong);
                 
 	            // new part
-*/
+
 	               var newurl = URL.replace("STLAT", srclat);
                         newurl = newurl.replace("STLONG", srclong);
                         $http.get(newurl).success(function (response) {
