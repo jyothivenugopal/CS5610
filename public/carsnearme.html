@@ -63,7 +63,7 @@
 
                         var newurl = URL.replace("STLAT", mysrclat);
                         newurl = newurl.replace("STLONG", mysrclong);
-                        $http.get(newurl).success(function (response) {
+                        $http.jsonp(newurl).success(function (response) {
                             $scope.content = response;
                             console.log($scope.content);
 
