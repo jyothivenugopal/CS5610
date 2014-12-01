@@ -6,6 +6,31 @@
         <li ng-repeat="dog in dogs">{{ dog }}</li>
     </ul>-->
 
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Capacity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="c in content.products">
+                <td>
+                    <img src={{c.image}} alt="No image">
+                </td>
+                <td>{{c.display_name}}</td>
+                <td>
+                    {{c.description}}
+                </td>
+                <td>{{c.capacity}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
     <!--Price estimates table-->
     <h2 class="text-center">Price Estimates</h2>
     <table class="table table-hover">
