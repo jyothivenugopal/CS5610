@@ -4,7 +4,9 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose/');
 
-mongoose.connect('mongodb://localhost/project');
+var mongooseurl = process.env.OPENSHIFT_MONGODB_DB_URL + "project";
+mongoose.connect(mongooseurl);
+//mongoose.connect('mongodb://localhost/MyDatabase');
 
 var Schema = mongoose.Schema;
 var UserDetail = new Schema({
@@ -63,9 +65,9 @@ app.get("/getresults/:sterm/:sloc", function (req, res) {
     });
 });
 
-app.get('/login', function (req, res) {
+/*app.get('/login', function (req, res) {
     res.sendfile('public/login.html');
-});
+});*/
 
 app.post('/login',
   passport.authenticate('local', {
