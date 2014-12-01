@@ -1,5 +1,20 @@
 var express = require('express');
 var mongojs = require('mongojs');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var mongoose = require('mongoose/');
+
+mongoose.connect('mongodb://localhost/project');
+
+var Schema = mongoose.Schema;
+var UserDetail = new Schema({
+    username: String,
+    password: String
+}, {
+    collection: 'userInfo'
+});
+var UserDetails = mongoose.model('userInfo', UserDetail);
+
 //var Client = require('node-rest-client').Client;
 //var https = require('https');
 
@@ -18,6 +33,8 @@ yelp.search({ term: "food", location: "Montreal" }, function (error, data) {
 //client = new Client();
 
 var app = express();
+app.use(passport.initialize());
+app.use(passport.session());
 // serve static content (html, css, js) in the public directory
 app.use(express.static(__dirname + '/public'));
 
@@ -45,6 +62,57 @@ app.get("/getresults/:sterm/:sloc", function (req, res) {
         res.json(data);
     });
 });
+
+app.get('/login', function (req, res) {
+    res.sendfile('public/login.html');
+});
+
+app.post('/login',
+  passport.authenticate('local', {
+      successRedirect: '/loginSuccess',
+      failureRedirect: '/loginFailure'
+  })
+);
+
+app.get('/loginFailure', function (req, res, next) {
+    res.send('Failed to authenticate');
+});
+
+app.get('/loginSuccess', function (req, res, next) {
+    res.sendfile('public/Afterlogin.html');
+    //res.send('Successfully authenticated');
+});
+
+passport.serializeUser(function (user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+    done(null, user);
+});
+
+passport.use(new LocalStrategy(function (username, password, done) {
+    process.nextTick(function () {
+        UserDetails.findOne({
+            'username': username,
+        }, function (err, user) {
+            if (err) {
+                return done(err);
+            }
+
+            if (!user) {
+                return done(null, false);
+            }
+
+            if (user.password != password) {
+                return done(null, false);
+            }
+
+            return done(null, user);
+        });
+    });
+}));
+
 
 /*app.get("/Uberresults", function (req, res) {
     //console.log("from server")
