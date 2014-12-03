@@ -32,7 +32,7 @@ function ServicesCtrl($scope, $http) {
 	    destlat = $scope.destlat;
 	    destlong = $scope.destlong;
 	    $scope.userlocation(b);
-	    //$scope.getUberSpecifics($scope, $http);
+	    $scope.getUberSpecifics($scope, $http);
 	}
 
 
@@ -55,7 +55,7 @@ function ServicesCtrl($scope, $http) {
                 
 	            // new part
 
-	               var newurl = URL.replace("STLAT", srclat);
+	               /*var newurl = URL.replace("STLAT", srclat);
                         newurl = newurl.replace("STLONG", srclong);
                         $http.get(newurl).success(function (response) {
                             $scope.content = response;
