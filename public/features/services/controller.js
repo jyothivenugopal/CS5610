@@ -32,14 +32,15 @@ function ServicesCtrl($scope, $http) {
 	    destlat = $scope.destlat;
 	    destlong = $scope.destlong;
 	    $scope.userlocation(b);
-	    $scope.getUberSpecifics($scope, $http);
+	    //$scope.getUberSpecifics($scope, $http);
 	}
 
 
     //new part
 
-	$scope.userlocation = function ($scope) {
-	    var URL = "https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=STLAT&longitude=STLONG"
+//	$scope.userlocation = function ($scope) {
+	$scope.userlocation = function () {
+	        var URL = "https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=STLAT&longitude=STLONG"
 
 	    if (navigator.geolocation) {
 	        navigator.geolocation.getCurrentPosition(function (position) {
@@ -55,14 +56,55 @@ function ServicesCtrl($scope, $http) {
                 
 	            // new part
 
-	               /*var newurl = URL.replace("STLAT", srclat);
-                        newurl = newurl.replace("STLONG", srclong);
-                        $http.get(newurl).success(function (response) {
-                            $scope.content = response;
-                            console.log($scope.content);
+	                //$scope.getMessage = function ($scope) {
+	                    //setTimeout(function () {
+	                    //    $scope.$apply(function () {
+	                    //        //wrapped this within $apply
+	                    //        $scope.message = 'Fetched after 3 seconds';
+	                    //        console.log('message:' + $scope.message);
+	                    //    });
+	                    //}, 2000);
+	                //}
 
-                        });
-                        /**/
+	                //$scope.getMessage();*/
+
+                    var newurl = URL.replace("STLAT", srclat);
+                    newurl = newurl.replace("STLONG", srclong);
+                    $http.get(newurl).success(function (response) {
+                        console.log(123);
+                        $scope.content = response;
+                        console.log($scope.content);
+                        console.log($scope.$digest);
+                        console.log(321);
+                    });
+
+                    var prestURL = "https://api.uber.com/v1/estimates/price?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&start_latitude=STLAT&start_longitude=STLONG&end_latitude=ENDLAT&end_longitude=ENDLONG";
+
+                    var pesturl = prestURL.replace("STLAT", srclat);
+                    pesturl = pesturl.replace("STLONG", srclong);
+                    pesturl = pesturl.replace("ENDLAT", destlat);
+                    pesturl = pesturl.replace("ENDLONG", destlong);
+	            //will work as long as cors plugin is enabled
+                    $http.get(pesturl).success(function (response) {
+                        $scope.prices = response.prices;
+                        //console.log($scope.prices);
+
+                    });
+
+	            //eta estimates
+
+                    var etaURL = "https://api.uber.com/v1/estimates/time?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&start_latitude=STLAT&start_longitude=STLONG";
+
+                    var etaesturl = etaURL.replace("STLAT", srclat);
+                    etaesturl = etaesturl.replace("STLONG", srclong);
+
+	            //will work as long as cors plugin is enabled
+                    $http.get(etaesturl).success(function (response) {
+                        $scope.times = response.times;
+                        console.log($scope.times);
+
+                    });
+                        
 
                 // end new part
 
