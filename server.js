@@ -52,11 +52,12 @@ app.use(function (req, res, next) {
 
 var mongodbConnectionString = process.env.OPENSHIFT_MONGODB_DB_URL + "project";
 if(typeof process.env.OPENSHIFT_MONGODB_DB_URL == "undefined") {
-	mongodbConnectionString = "newdb" //for local
+    mongodbConnectionString = "MyDatabase" //for local
 }
 
 var db = mongojs(mongodbConnectionString, ["comment"]);
 var db1 = mongojs(mongodbConnectionString, ["serviceClients"]);
+var db2 = mongojs(mongodbConnectionString, ["wishlist"]);
 
 app.get("/getresults/:sterm/:sloc", function (req, res) {
     var sterm = req.params.sterm;
@@ -158,6 +159,20 @@ app.post("/serviceClients", function (req, res) {
 		res.json(doc);
 	});
 });
+
+app.post("/addWishlist", function (req, res) {
+    // the serviceClient is in the body of the HTTP request
+    var svc = req.body;
+
+    // insert new serviceClient object into the database collection serviceClients
+    db2.wishlist.insert(req.body, function (err, doc) {
+        // respond with the new object that has been inserted
+        res.json(doc);
+    });
+});
+
+
+
 
 // to select single comment in order to update it
 app.get("/serviceClients/:id", function (req, res) {

@@ -27,6 +27,7 @@
                     <th>Address</th>
                     <th>Rating</th>
                     <th>Go here!</th>
+                    <th>Add to Wishlist</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,6 +44,7 @@
                         {{b.rating}}
                     </td>
                     <td><a ui-sref=".list" class="btn btn-primary" ng-click="choose(b)">Go here</a></td>
+                    <td><button class="btn btn-success" ng-click="Add(b)">Add</button></td>
 
                 </tr>
             </tbody>
@@ -50,7 +52,9 @@
 
     </div>
 
-    <table class="table">
+    <hr />
+
+    <!--<table class="table">
         <thead>
             <tr>
                 <th>Comment Name</th>
@@ -77,7 +81,7 @@
                 </td>
             </tr>
         </tbody>
-    </table>
+    </table>-->
 
     <!--<a ui-sref=".list" class="btn btn-primary">List</a>-->
 

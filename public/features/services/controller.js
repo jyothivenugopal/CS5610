@@ -14,6 +14,18 @@ function ServicesCtrl($scope, $http) {
 		});
 	}
 
+	$scope.Add = function (b) {
+	    $http.post("/addWishlist", b)
+		.success(function (response) {
+		    console.log("added");
+		    var index = $scope.businesses.indexOf(b);
+		    console.log(index);
+		    $scope.businesses.splice(index, 1);
+		    $scope.prices = {};
+		    $scope.times = {};
+		});
+	}
+
 	$scope.getresults = function () {
 	    console.log("Hello from getresults")
 	    var sterm = $scope.searchterm;
