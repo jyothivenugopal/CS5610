@@ -1,35 +1,7 @@
 <br />
 <br />
 <div class="container">
-    <h2 class="text-danger">Output section</h2>
-    <!--<ul>
-        <li ng-repeat="dog in dogs">{{ dog }}</li>
-    </ul>-->
-
-
-    <!--<table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Capacity</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="c in content.products">
-                <td>
-                    <img src={{c.image}} alt="No image">
-                </td>
-                <td>{{c.display_name}}</td>
-                <td>
-                    {{c.description}}
-                </td>
-                <td>{{c.capacity}}</td>
-            </tr>
-        </tbody>
-    </table>-->
-
+    <h2 class="text-danger">Your Statistics to get to the destination: </h2>
 
     <!--Price estimates table-->
     <h2 class="text-center">Price Estimates</h2>
@@ -75,15 +47,10 @@
         </tbody>
     </table>
 
-    <h2>Promotions</h2>
-
-    {{promos.display_text}}
+    <h2 class="lead text-success">Congratulations, Your Promotions are as follows!</h2>
+    <p class="lead">{{promos.type}} :- You have a {{promos.display_text}}.</p>
     <br />
-    {{promos.localized_value}}
-    <br />
-    {{promos.type}}
-
-
+    
 </div>
 <br />
 <br />

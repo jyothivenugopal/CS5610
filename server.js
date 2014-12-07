@@ -5,9 +5,9 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose/');
 
 //these two lines for openshift
-var mongooseurl = process.env.OPENSHIFT_MONGODB_DB_URL + "project";
-mongoose.connect(mongooseurl);
-//mongoose.connect('mongodb://localhost/MyDatabase');
+//var mongooseurl = process.env.OPENSHIFT_MONGODB_DB_URL + "project";
+//mongoose.connect(mongooseurl);
+mongoose.connect('mongodb://localhost/MyDatabase');
 
 var Schema = mongoose.Schema;
 var UserDetail = new Schema({
@@ -148,6 +148,12 @@ app.get("/serviceClients", function (req, res) {
 	});
 });
 
+app.get("/getWishList", function (req, res) {
+    db2.wishlist.find(function (err, docs) {
+        res.json(docs);
+    });
+});
+
 // to insert new comment body into database
 app.post("/serviceClients", function (req, res) {
 	// the serviceClient is in the body of the HTTP request
@@ -209,6 +215,18 @@ app.delete("/serviceClients/:id", function (req, res) {
 		function (err, doc) {
 			// respond with number of documents affected
 			res.json(doc);
+		});
+});
+
+
+app.delete("/remwishlist/:id", function (req, res) {
+    // parse id from the path parameter
+    var id = req.params.id;
+    // find the document by id and remove it
+    db2.wishlist.remove({ _id: mongojs.ObjectId(id) },
+		function (err, doc) {
+		    // respond with number of documents affected
+		    res.json(doc);
 		});
 });
 

@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <script src="angular.min.js"></script>
+</head>
+<body ng-app>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="Afterlogin.html">Search and GO!!!</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="Afterlogin.html">Home</a></li>
+            <li><a href="dashboard.html">My Dashboard</a></li>           
+            <li><a href="carsnearme.html">Cars Near Me</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contactme">Contact Me</a></li>
+        </ul>
+    </nav>
+    <h1 class="text-center">My Dashboard</h1>
+    <br />
+    <div class="container" ng-controller="WishlistController">
+        <p class="lead">My Wishlist</p>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Address</th>
+                    <th>Rating</th>
+                    <th>Remove from Wishlist</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="wl in mywishlist">
+                    <td>
+                        <img src={{wl.image_url}} alt="No image">
+                    </td>
+                    <td>
+                        <a href={{wl.url}}>{{wl.id}}</a>
+                    </td>
+                    <td>{{wl.display_phone}}</td>
+                    <td><b ng-repeat="add in wl.location.display_address">{{add}}</b></td>
+                    <td>
+                        {{wl.rating}}
+                    </td>
+                    
+                    <td><button class="btn btn-danger" ng-click="remove(wl._id)">Delete</button></td>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="footer navbar-fixed-bottom">
+
+        <div class="container">
+            <p class="text-center">Copyright © 2014 By Jyothi Venugopal All Rights Reserved.</p>
+        </div>
+
+    </div>
+    <script>
+        function WishlistController($scope, $http) {
+            $scope.message = "hi";
+
+            $scope.renderWishList = function (response) {
+                $scope.mywishlist = response;
+                console.log($scope.mywishlist);
+            };
+
+            $scope.remove = function (id) {
+                $http.delete("/remwishlist/" + id)
+                .success(function (response) {
+                    $scope.all();
+                });
+            };
+
+            $scope.all = function () {
+                $http.get("/getWishList")
+                .success($scope.renderWishList);
+            }
+
+            $scope.all();
+        }
+
+    </script>
+</body>
+</html>
