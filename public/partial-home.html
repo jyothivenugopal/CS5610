@@ -43,7 +43,7 @@
                     <td>
                         {{b.rating}}
                     </td>
-                    <td><a ui-sref=".list" class="btn btn-primary" ng-click="choose(b)">Go here</a></td>
+                    <td><a ui-sref=".list" onclick="window.scrollTo(0, 3000)" class="btn btn-primary" ng-click="choose(b)">Go here</a></td>
                     <td><button class="btn btn-success" ng-click="Add(b)">Add</button></td>
 
                 </tr>
@@ -86,11 +86,15 @@
     <!--<a ui-sref=".list" class="btn btn-primary">List</a>-->
 
     <div class="container">
-        <div ui-view autoscroll></div>
+        <div ui-view></div>
+        <br />
+        <button type="button" onclick="window.scrollTo(0, -3000)" class="btn btn-primary btn-lg btn-block">BACK to TOP!</button>
     </div>
-
+    
     <!--<a ui-sref=".paragraph" class="btn btn-danger">Go On Top</a>-->
     <br />
     <br />
 
 </div>
+
+<br /><br /><br />
