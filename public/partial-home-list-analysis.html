@@ -1,0 +1,54 @@
+<br />
+<br />
+<div class="container">
+    <h2 class="text-danger">Your Statistics to get to the destination: </h2>
+
+    <!--Price estimates table-->
+    <h2 class="text-center">Price Estimates</h2>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Estimated Time(min)</th>
+                <th>Distance</th>
+                <th>Price Estimate</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="pr in prices">
+                <td>
+                    {{pr.display_name}}
+                </td>
+                <td>{{pr.duration / 60}}</td>
+                <td>
+                    {{pr.distance}}
+                </td>
+                <td>{{pr.estimate}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!--eta table-->
+    <h2 class="text-center">Estimated time of arrival</h2>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Estimated Time(min)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="t in times">
+                <td>
+                    {{t.display_name}}
+                </td>
+                <td>{{t.estimate / 60}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="lead text-success">Congratulations, Your Promotions are as follows!</h2>
+    <p class="lead">{{promos.type}} :- You have a {{promos.display_text}}.</p>
+    <br />
+    
+</div>

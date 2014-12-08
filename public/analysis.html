@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- CSS (load bootstrap) -->
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <style>
+        .navbar { border-radius:0; }
+    </style>
+
+    <!-- JS (load angular, ui-router, and our custom js file) -->
+    <script src="angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="angular-ui-router.min.js"></script>
+    <script src="analysisapp.js"></script>
+    <script src="features/services/controller.js"></script>
+    <script src="features/services/myapp.js"></script>
+</head>
+
+<!-- apply our angular app to our site -->
+<body ng-app="routerApp">
+
+<!-- NAVIGATION -->
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" ui-sref="#">Search and GO!!!</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li><a ui-sref="home">Home</a></li>      
+        <!--<li><a ui-sref="dashboard">Dashboard</a></li>-->
+        <li><a href="index.html">Login</a></li>
+        <li><a href="carsnearmeanalysis.html">Cars Near Me</a></li>
+        <li><a ui-sref="about">About</a></li>
+        <li><a ui-sref="contactme">Contact Me</a></li>
+        
+    </ul>
+</nav>
+
+<div class="container">
+    <div ui-view></div>
+</div>
+
+    <div class="footer navbar-fixed-bottom">
+
+        <div class="container">
+            <p class="text-center">Copyright © 2014 By Jyothi Venugopal All Rights Reserved.</p>
+        </div>
+
+    </div>
+
+</body>
+</html>

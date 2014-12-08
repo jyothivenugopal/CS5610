@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Using Uber's Price Estimate Endpoint</title>
+    <script src="angular.min.js"></script>
+    <link rel="stylesheet" href="bootstrap.min.css">
+</head>
+<body ng-app>
+    <!-- NAVIGATION -->
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="analysis.html">Search and GO!!!</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="index.html">Login</a></li>
+            <li><a href="carsnearmeanalysis.html">Cars Near Me</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contactme">Contact Me</a></li>
+            
+        </ul>
+    </nav>
+    <div class="container" ng-controller="WeatherClientController">
+        
+        <h1 class="text-center">Uber's Near Me</h1>
+        <br />
+        <div class="part1">
+            <p class="lead">Want to know which Uber Vehicles are close to you, to speed up the search?? Simple, Just click on the 
+            below button and we will display the vehicles nearest to you.</p>
+            <button class="btn btn-success" ng-click="getMovies()">Get Uber's!</button>
+            <br />
+        </div>
+        <br />
+        <div class="part2">
+            <h3 class="lead">These are the list of Uber Vehicles close to you:</h3>
+            Enter values to filter by: 
+            <input type="text" size="50" placeholder="Enter value to filter the results by" ng-model="value">
+            <br />
+            <br /><br />
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Capacity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="c in content.products | filter:value">
+                        <td>
+                            <img src={{c.image}} alt="No image">
+                        </td>
+                        <td>{{c.display_name}}</td>
+                        <td>
+                            {{c.description}}
+                        </td>
+                        <td>{{c.capacity}}</td>
+                    </tr>
+                </tbody>
+            </table>
+           
+
+        </div>
+
+        <div class="footer navbar-fixed-bottom">
+
+            <div class="container">
+                <p class="text-center">Copyright © 2014 By Jyothi Venugopal All Rights Reserved.</p>
+            </div>
+
+        </div>
+
+        
+    </div>
+
+    <script>
+        var URL = "https://api.uber.com/v1/products?client_id=J2z1kmygRGKmvem0kFJczeJ4bA8I8o1r&client_secret=PS4vjomIGnaYm4iZ2RQUCPtUOYw6wwofBQ9LtQOX&server_token=VMSBIWPv7tRD5PpIPrLEVIa8ahfpMgs9FxxRM67f&latitude=STLAT&longitude=STLONG";
+        var mysrclat = 0;
+        var mysrclong = 0;
+        function WeatherClientController($scope, $http) {
+            $scope.getMovies = function () {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+
+                        mysrclat = position.coords.latitude;
+                        mysrclong = position.coords.longitude;
+                        console.log(mysrclat);
+                        console.log(mysrclong);
+
+                        var newurl = URL.replace("STLAT", mysrclat);
+                        newurl = newurl.replace("STLONG", mysrclong);
+                        $http.get(newurl).success(function (response) {
+                            $scope.content = response;
+                            console.log($scope.content);
+
+                        });
+                    });                   
+                }
+                
+            }
+        }
+
+    </script>
+
+</body>
+</html>
