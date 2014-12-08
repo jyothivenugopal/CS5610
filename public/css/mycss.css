@@ -1,0 +1,14 @@
+﻿html, body {
+    height:100%;
+    width:100%;
+    position:relative;
+    margin:0;
+    padding:0;
+}
+div:first-of-type {
+    height:100%;
+    width:100%;
+    background-image:url(../imgrest.jpg);
+    background-size:cover;
+    background-position:center center;
+}
