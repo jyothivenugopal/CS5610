@@ -5,9 +5,9 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose/');
 
 //these two lines for openshift
-var mongooseurl = process.env.OPENSHIFT_MONGODB_DB_URL + "project";
-mongoose.connect(mongooseurl);
-//mongoose.connect('mongodb://localhost/MyDatabase');
+//var mongooseurl = process.env.OPENSHIFT_MONGODB_DB_URL + "project";
+//mongoose.connect(mongooseurl);
+mongoose.connect('mongodb://localhost/MyDatabase');
 
 var Schema = mongoose.Schema;
 var UserDetail = new Schema({
